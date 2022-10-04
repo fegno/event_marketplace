@@ -1,4 +1,4 @@
-from django.conf.global_settings import AUTH_USER_MODEL
+from django.conf import settings
 from django.db import models
 
 
@@ -15,9 +15,8 @@ class Currency(models.Model):
 
 # Create your models here.
 class Inquiry(models.Model):
-    status = models.CharField()
     event = models.ForeignKey('events.Event', on_delete=models.CASCADE)
-    user = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -46,3 +45,12 @@ class Order(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+
+
+class Ticket(models.Model):
+    order = models.ForeignKey('Order', on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='tickets')
+    event = models.ForeignKey('events.Event', on_delete=models.CASCADE, related_name='tickets')
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)

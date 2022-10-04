@@ -1,6 +1,16 @@
+from django.conf import settings
 from django.db import models
+from django.contrib.gis.db.models import PointField
 
 # Create your models here.
+
+
+class Location(models.Model):
+    location = PointField(null=True, blank=True)
+    # pincode = models.CharField(null=True, blank=True, validators=[pincode_required], max_length=8)
+    is_active = models.BooleanField(default=True)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True)
+    name = models.CharField(max_length=100)
 
 
 class Destination(models.Model):
@@ -19,6 +29,7 @@ class Venue(models.Model):
     facebook_url = models.URLField()
     twitter_url = models.URLField()
     linkedin_url = models.URLField()
+
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField()
 
@@ -37,18 +48,20 @@ class Event(models.Model):
     description = models.TextField(max_length=500)
     destination = models.ForeignKey('Destination', on_delete=models.CASCADE)
     location = models.ForeignKey('Location', on_delete=models.CASCADE)
+    price = models.FloatField()
+
     start_date = models.DateTimeField()
     end_date = models.DateTimeField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-    vendor = models.ForeignKey('user.Vendor', on_delete=models.SET_NULL)
+    vendor = models.ForeignKey('user.Vendor', on_delete=models.SET_NULL, related_name='events', blank=True, null=True)
     event_type = models.CharField(choices=(
         (VIRTUAL, VIRTUAL),
         (HYBRID, HYBRID),
         (INPERSON, INPERSON)
     ), max_length=100, null=True, blank=True)
-    venue = models.ForeignKey('Venue', on_delete=models.SET_NULL)
+    venue = models.ForeignKey('Venue', on_delete=models.SET_NULL, related_name='events', null=True, blank=True)
 
 
     def __str__(self):
@@ -56,8 +69,8 @@ class Event(models.Model):
 
 
 class EventImages(models.Model):
-    event = models.ForeignKey('Event', on_delete=models.CASCADE)
-    image = models.ImageField(upload_to='events/',null=True, blank=True)
+    event = models.ForeignKey('Event', on_delete=models.CASCADE, related_name='images')
+    image = models.ImageField(upload_to='events/', null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
