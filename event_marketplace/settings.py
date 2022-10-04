@@ -66,7 +66,7 @@ ROOT_URLCONF = 'event_marketplace.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -115,11 +115,11 @@ SOCIAL_AUTH_URL_NAMESPACE = 'social'
 
 AUTHENTICATION_BACKENDS = (
     'social_core.backends.open_id.OpenIdAuth',
-    'social_core.backends.google.GoogleOpenId',
+    # 'social_core.backends.google.GoogleOpenId',
     'social_core.backends.google.GoogleOAuth2',
     'social_core.backends.google.GoogleOAuth',
     'social_core.backends.twitter.TwitterOAuth',
-    'social_core.backends.yahoo.YahooOpenId',
+    # 'social_core.backends.yahoo.YahooOpenId',
 
     'django.contrib.auth.backends.ModelBackend',
 )
@@ -143,6 +143,8 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = 'index'
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
