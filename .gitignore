@@ -1,4 +1,5 @@
 node_modules
+dg/*
 *.map
 serviceclub/public/staticfiles
 =======

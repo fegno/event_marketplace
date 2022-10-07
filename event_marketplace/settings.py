@@ -43,11 +43,14 @@ INSTALLED_APPS = [
 
     # 'razorpay',
     'social_django',
+    'django_extensions',
 
     'apps.events',
     'apps.user',
     'apps.orders',
     'apps.cms',
+
+    'dg'
 
 ]
 

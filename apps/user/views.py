@@ -11,6 +11,10 @@ class IndexView(TemplateView):
     template_name = 'index.html'
 
 
+    def get(self, request, *args, **kwargs):
+        print(self.request.user)
+        return super().get(request, *args, **kwargs)
+
 
 class SettingsView(LoginRequiredMixin, TemplateView):
     def get(self, request, *args, **kwargs):
