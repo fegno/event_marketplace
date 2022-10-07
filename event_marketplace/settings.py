@@ -126,6 +126,11 @@ SOCIAL_AUTH_TWITTER_KEY = os.getenv('SOCIAL_AUTH_TWITTER_KEY')
 SOCIAL_AUTH_TWITTER_SECRET = os.getenv('SOCIAL_AUTH_TWITTER_SECRET')
 
 
+
+RAZORPAY_KEY_ID = os.getenv('RAZORPAY_KEY_ID')
+RAZORPAY_KEY_SECRET = os.getenv('RAZORPAY_KEY_SECRET')
+
+
 AUTHENTICATION_BACKENDS = (
     'social_core.backends.open_id.OpenIdAuth',
     # 'social_core.backends.google.GoogleOpenId',
