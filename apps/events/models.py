@@ -26,12 +26,12 @@ class Venue(models.Model):
     description = models.TextField(max_length=500)
     location = models.ForeignKey('Location', on_delete=models.CASCADE)
     destination = models.ForeignKey('Destination', on_delete=models.CASCADE)
-    facebook_url = models.URLField()
-    twitter_url = models.URLField()
-    linkedin_url = models.URLField()
+    facebook_url = models.URLField(null=True, blank=True)
+    twitter_url = models.URLField(null=True, blank=True)
+    linkedin_url = models.URLField(null=True, blank=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField()
+    updated_at = models.DateTimeField(auto_now=True)
 
 
     def __str__(self):
@@ -50,8 +50,8 @@ class Event(models.Model):
     location = models.ForeignKey('Location', on_delete=models.CASCADE)
     price = models.FloatField()
 
-    start_date = models.DateTimeField()
-    end_date = models.DateTimeField()
+    start_date = models.DateTimeField(null=True, blank=True)
+    end_date = models.DateTimeField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -60,7 +60,7 @@ class Event(models.Model):
         (VIRTUAL, VIRTUAL),
         (HYBRID, HYBRID),
         (INPERSON, INPERSON)
-    ), max_length=100, null=True, blank=True)
+    ), max_length=100, default=INPERSON)
     venue = models.ForeignKey('Venue', on_delete=models.SET_NULL, related_name='events', null=True, blank=True)
 
 

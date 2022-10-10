@@ -5,12 +5,12 @@
     <script>
     var options = {
         key: "{{razorpay_key}}",
-        amount: "{{order.amount}}", 
+        amount: "{{pg.amount}}",
         currency: "INR",
-        name: "{{order.name}}",
+        name: "{{pg.name}}",
         description: "Test Transaction",
         image: "https://example.com/your_logo",
-        order_id: "{{order.provider_order_id}}",
+        order_id: "{{pg.provider_order_id}}",
         callback_url: "{{callback_url}}",
         redirect: true,
         prefill: {

@@ -32,9 +32,8 @@ class Order(models.Model):
         (CANCELLED, CANCELLED),
         (PARTIAL_RETURN, PARTIAL_RETURN),
     ])
+    inquiry = models.ForeignKey(Inquiry, on_delete=models.SET_NULL, blank=True, null=True)
 
-    currency = models.ForeignKey(Currency, on_delete=models.CASCADE, null=True, blank=True)
-    mode_of_payment = models.ForeignKey(ModeOfPayment, on_delete=models.CASCADE, null=True, blank=True)
     amount = models.FloatField(default=0)
     amount_discount = models.FloatField(default=0)
     tax = models.FloatField(default=0)
